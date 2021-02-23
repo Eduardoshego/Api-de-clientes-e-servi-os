@@ -27,7 +27,7 @@ public class ClienteService {
     public Cliente findById(String id){
         return repository
                 .findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
     }
     public void deletar(String id){
         repository.findById(id)
@@ -35,7 +35,7 @@ public class ClienteService {
                     repository.delete(Cliente);
                     return Void.TYPE;
                 })
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
     public void atualizar(String id, Cliente atualizarCliente){
         repository.findById(id)
@@ -46,6 +46,6 @@ public class ClienteService {
                    cliente.setDataModificacao(LocalDate.now());
                     return repository.save(cliente);
                 })
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 }
